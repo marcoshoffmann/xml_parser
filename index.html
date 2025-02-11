@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunicação HTML e Python</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="{{ url_for('static', filename='') }}" type="image/x-icon">
+</head>
+    <body>
+        <!-- Botão para converter os arquivos -->
+        <nav>
+            <button type="button" id="convert-button" class="submit-button">
+                Converter Arquivos
+            </button>
+            <button type="button" id="modify-button" class="submit-button">
+                Modificar Arquivos
+            </button>
+            <button type="button" id="quit-button" class="submit-button">
+                Sair
+            </button>
+        </nav>
+
+        <script>
+            // Botão de conversão
+            document.getElementById('convert-button').addEventListener('click', async () => {
+                try {
+                    const response = await window.pywebview.api.process_files();
+                    alert(response); // Mostra a resposta do backend no navegador
+                } catch (error) {
+                    console.error("Erro ao processar arquivos:", error);
+                }
+            });
+        
+            // Botão de saída
+            document.getElementById('quit-button').addEventListener('click', async () => {
+                try {
+                    await window.pywebview.api.sair(); // Apenas chama a função de saída
+                } catch (error) {
+                    console.error("Erro ao sair:", error);
+                }
+            });
+        </script>
+    </body>
+</html>
